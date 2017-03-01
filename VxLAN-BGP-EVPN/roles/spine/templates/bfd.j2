@@ -1,0 +1,4 @@
+{% for interface in interfaces %}
+interface {{ interface }}
+  bfd interval 50 min_rx 50 multiplier 3
+{% endfor %}

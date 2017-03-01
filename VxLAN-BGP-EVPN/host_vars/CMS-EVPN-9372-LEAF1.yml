@@ -1,0 +1,36 @@
+---
+asn: 65500.12
+router_id: 1.0.0.1
+
+interfaces:
+  - { interface: Ethernet1/49, addr: 1.1.1.2, mask: 30 }
+  - { interface: Ethernet1/50, addr: 2.1.1.2, mask: 30 }
+
+loopbacks:
+  - { interface: loopback0, addr: 1.0.0.1, mask: 32 }
+  - { interface: loopback1, addr: 2.0.0.1, mask: 32 }
+
+mgmt:
+  - { interface: mgmt0, addr: 10.83.11.66, mask: 24 }
+
+bgp_neighbors:
+  - { remote_as: 65500.1, neighbor: 1.1.1.1, update_source: Loopback0 }
+  - { remote_as: 65500.1, neighbor: 2.1.1.1, update_source: Loopback0 }
+
+bgp_networks:
+  - 1.0.0.1/32
+  - 2.0.0.1/32
+  - 2.0.0.12/32
+
+vpc:
+  domain: 12
+  role_priority: 100
+  pkl: Ethernet1/48
+  pkl_dest: 12.1.1.2
+  pkl_src: 12.1.1.1
+  pkl_mask: 30
+  pkl_vrf: VPC-KEEP
+  peerlink_pc: 12
+  peerlink_ports:
+    - Ethernet1/53
+    - Ethernet1/54

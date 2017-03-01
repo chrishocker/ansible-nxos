@@ -1,0 +1,28 @@
+---
+
+- name: Configure Spines
+  hosts: spine
+  connection: local
+  gather_facts: no
+  vars_files: 
+    - secrets.yml
+  roles:
+    - role: common
+    - role: spine
+
+- name: Configure Leaves
+  hosts: leaf
+  connection: local
+  gather_facts: no
+  vars_files: 
+    - secrets.yml
+  roles:
+    - role: common
+    - role: leaf
+    - role: services
+
+#- hosts: all
+  #tasks:
+  #  - name: save config
+  #    nxos_save_config: host={{ inventory_hostname }}
+

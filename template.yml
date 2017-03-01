@@ -1,0 +1,26 @@
+---
+- name: Test Playbook
+  hosts: all
+  gather_facts: no
+  connection: local
+  vars:
+    nxapi:
+      host: "{{ ansible_host }}"
+      username: admin
+      password: Cisco123
+      transport: nxapi
+  tasks:
+    
+    - name: Apply basic template
+      nxos_config:
+        src: basic.j2
+        provider: "{{ nxapi }}"
+
+    - name: Enable NX-API
+      nxos_config:
+        src: nxapi.j2
+        provider: "{{ nxapi }}"
+      tags: nxapi
+
+
+

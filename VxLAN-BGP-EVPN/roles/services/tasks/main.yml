@@ -1,0 +1,30 @@
+---
+    - name: Configure VLANs
+      nxos_vlan: 
+        vlan_id: "{{ item.id }}"
+        state: present
+        mapped_vni: "{{ item.vn_segment }}"
+        name: "{{ item.name }}"
+        provider: "{{ provider }}"
+      with_items: "{{ vlans }}"
+      tags: vlan
+
+    - name: Configure VRFs
+      nxos_vrf: 
+        vrf: "{{ item.name }}"
+        state: present
+        rd: auto
+        vni: "{{ item.vni }}"
+        provider: "{{ provider }}"
+      with_items: "{{ vrfs }}"
+      tags: vrf
+
+    - name: Configure EVPNs
+      nxos_evpn_vni:
+        vni: "{{ item.vni }}"
+        route_distinguisher: "{{ item.rd }}"
+        route_target_import: "{{ item.rt }}"
+        route_target_export: "{{ item.rt }}"
+        provider: "{{ provider }}"
+      with_items: "{{ evpns }}"
+      tags: evpn

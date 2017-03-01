@@ -1,0 +1,20 @@
+---
+  features:
+  - { feature: bgp }
+  - { feature: interface-vlan }
+  - { feature: "nv overlay" }
+  - { feature: vnseg_vlan }
+
+ # default_vrf_interfaces:
+ # - { interface: Ethernet1/49 }
+ # - { interface: Ethernet1/50 }
+ # - { interface: Ethernet1/51 }
+ # - { interface: Ethernet1/52 }
+ # - { interface: Loopback0 }
+ # - { interface: Loopback1 }
+
+ # address_families:
+ # - { afi: ipv4, safi: unicast }
+ # - { afi: l2vpn, safi: evpn }
+  
+

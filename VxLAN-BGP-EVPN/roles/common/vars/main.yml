@@ -1,0 +1,12 @@
+---
+  features:
+    - { feature: telnet }
+    - { feature: nxapi }
+    - { feature: vrrp }
+    - { feature: lldp }
+    - { feature: bfd }
+    - { feature: pim }
+    - { feature: scp-server }
+    - { feature: bash-shell }
+    #- { feature: ospf }
+    #- { feature: eigrp }

@@ -1,0 +1,19 @@
+---
+- name: Snapshot Playbook
+  hosts: leaf
+  gather_facts:  no
+  connection: local
+  vars:
+    nxapi:
+      host: "{{ ansible_host }}"
+      username: admin
+      password: Cisco123
+      transport: nxapi
+
+
+  tasks:
+
+    - name: Create a snapshot
+      nxos_snapshot:
+        action: delete_all
+        provider: "{{ nxapi }}"

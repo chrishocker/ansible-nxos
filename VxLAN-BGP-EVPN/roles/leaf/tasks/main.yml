@@ -1,0 +1,116 @@
+---    
+    - name: Enable Necessary Leaf Features
+      nxos_feature:
+        feature: "{{item.feature }}"
+        provider: "{{ provider }}"
+      with_items: "{{ features }}"
+
+    - name: Configure Interface Info
+      nxos_interface:
+        interface: "{{item.interface }}"
+        mode: layer3
+        provider: "{{ provider }}"
+      with_items:
+      - "{{ interfaces }}"
+      - "{{ loopbacks }}"
+
+    - name: Enable Interface BFD
+      nxos_config: 
+        lines: 
+          - bfd interval 50 min_rx 50 multiplier 3
+        parents: "interface {{ item.interface }}"
+        provider: "{{ provider }}"
+      with_items: "{{ interfaces }}"
+      tags: bfd
+      
+    - name: Change Interface MTU to 9216
+      nxos_mtu: 
+        mtu: 9216
+        interface: "{{ item.interface }}"
+        state: present
+        provider: "{{ provider }}"
+      with_items: "{{ interfaces }}"
+
+    - name: Configure IP Addresses
+      nxos_ip_interface:
+        interface: "{{ item.interface }}"
+        addr: "{{ item.addr }}"
+        mask: "{{ item.mask }}"
+        provider: "{{ provider }}"
+      with_items: 
+      - "{{ interfaces }}"
+      - "{{ loopbacks }}"
+
+    - name: Apply BGP Template
+      nxos_config:
+        src: bgp.j2
+        provider: "{{ provider }}"
+
+    - name: Configure BGP Neighbors
+      nxos_config:
+        lines:
+          - inherit peer ebgp_evpn
+          - remote-as {{ item.remote_as }}
+        parents: 
+          - router bgp {{ asn }} 
+          - "neighbor {{ item.neighbor }}"
+        provider: "{{ provider }}"
+      with_items: "{{ bgp_neighbors }}"
+      tags: bgp
+
+    - name: ENABLE NV OVERLAY EVPN
+      nxos_evpn_global:
+        nv_overlay_evpn: true
+        provider: "{{ provider }}"
+        
+    - name: ASSIGN ANYCAST GATEWAY 
+      nxos_overlay_global:
+        anycast_gateway_mac: 0001.DEAD.BEEF
+        provider: "{{ provider }}"
+
+    - name: CREATE VXLAN VTEP Interface
+      nxos_interface: 
+        interface: nve1
+        state: present
+        admin_state: up
+        provider: "{{ provider }}"
+
+    - name: CONFIGURE VTEP
+      nxos_vxlan_vtep:
+        interface: nve1
+        host_reachability: "true"
+        source_interface: Loopback1
+        provider: "{{ provider }}"
+
+    - name: Configure IP Multicast Template
+      nxos_config:
+        src: multicast.j2
+        provider: "{{ provider }}"
+      tags: multicast
+
+    - name: Enable IP PIM Spare-Mode on Interfaces
+      nxos_config: 
+        lines: 
+          - ip pim sparse-mode
+        parents: "interface {{ item.interface }}"
+        provider: "{{ provider }}"
+      with_items: "{{ interfaces }}"
+      tags: multicast
+
+    - name: Configure VPC Peerlink Ports
+      nxos_config:
+        lines:
+          - switchport mode trunk
+          - spanning-tree port type network
+          - channel-group {{ vpc.peerlink_pc }} mode active
+        parents: "interface {{ item }}"
+        provider: "{{ provider }}"
+      with_items: "{{ vpc.peerlink_ports }}"
+      tags: vpc
+
+    - name: Configure VPC PKA, Peerlink, and Domain
+      nxos_config:
+        src: vpc.j2
+        provider: "{{ provider }}"
+      tags: vpc
+

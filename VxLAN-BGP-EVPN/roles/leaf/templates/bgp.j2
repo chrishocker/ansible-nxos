@@ -1,0 +1,21 @@
+route-map next-hop-unchanged permit 10
+  set ip next-hop unchanged
+as-format asdot
+
+router bgp {{ asn }}
+  address-family ipv4 unicast
+    nexthop route-map next-hop-unchanged
+  template peer ebgp_evpn
+    bfd
+    remote-as 65500.1
+    password 3 a667d47acc18ea6b
+    address-family ipv4 unicast
+      allowas-in
+      send-community extended
+      route-map next-hop-unchanged in
+      route-map next-hop-unchanged out
+    address-family l2vpn evpn
+      allowas-in
+      send-community extended
+      route-map next-hop-unchanged in
+      route-map next-hop-unchanged out

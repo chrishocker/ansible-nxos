@@ -1,0 +1,22 @@
+---
+  
+  - name: Enable Necessary Common Features
+    nxos_feature:
+      feature: "{{ item.feature }}"
+      provider: "{{ provider }}"
+    with_items: "{{ features }}"
+
+  - name: Apply Common Template
+    nxos_config:
+      src: common.j2
+      provider: "{{ provider }}"
+    tags: common
+
+  - name: Configure Management Interface
+    nxos_ip_interface:
+      interface: "{{ item.interface }}"
+      addr: "{{ item.addr }}"
+      mask: "{{ item.mask }}"
+      provider: "{{ provider }}"
+    with_items: "{{ mgmt }}"
+    tags: mgmt

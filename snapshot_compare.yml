@@ -1,0 +1,30 @@
+---
+- name: Snapshot Playbook
+  hosts: leaf
+  gather_facts:  no
+  connection: local
+  vars:
+    nxapi:
+      host: "{{ ansible_host }}"
+      username: admin
+      password: Cisco123
+      transport: nxapi
+
+
+  tasks:
+
+    - name: Generating snapshot comparison
+      nxos_snapshot:
+        action: compare
+        snapshot1: "{{ inventory_hostname }}_pre_snapshot"
+        snapshot2: "{{ inventory_hostname }}_post_snapshot"
+        comparison_results_file: "{{ inventory_hostname }}_compare_snapshots.txt"
+        compare_option: summary
+        path: './snapshots/'
+        provider: "{{ nxapi }}"
+      register: output2
+
+    - command: cat "./snapshots/{{ inventory_hostname }}_compare_snapshots.txt"
+      register: output
+
+    - debug: var=output.stdout_lines

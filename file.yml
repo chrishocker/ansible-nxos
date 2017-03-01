@@ -1,0 +1,17 @@
+---
+- name: Copy files to switches
+  hosts: all
+  connection: local
+  gather_facts: no
+  vars:
+    nxapi:
+      host: "{{ ansible_host }}"
+      username: admin
+      password: Cisco123
+      transport: nxapi
+
+  tasks:
+  - name: copy package to the device
+    nxos_file_copy:
+      local_file: "./python/systemresc_monitor.py"
+      provider: "{{ nxapi }}"

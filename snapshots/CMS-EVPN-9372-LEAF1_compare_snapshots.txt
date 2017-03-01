@@ -1,0 +1,32 @@
+
+================================================================================
+Feature                          CMS-EVPN-9372-LEAF1_pre_snapshot CMS-EVPN-9372-LEAF1_post_snapshot changed 
+================================================================================
+basic summary
+   # of interfaces                          61               61        
+   # of vlans                               5                5         
+   # of ipv4 routes  vrf default            36               36       
+   # of ipv4 paths   vrf default            40               40       
+   # of ipv4 routes  vrf management         16               16       
+   # of ipv4 paths   vrf management         16               16       
+   # of ipv4 routes  vrf CMS-TENANT-PROD-01        15               15       
+   # of ipv4 paths   vrf CMS-TENANT-PROD-01        15               15       
+   # of ipv4 routes  vrf VPC-KEEP           8                8        
+   # of ipv4 paths   vrf VPC-KEEP           8                8        
+   # of ipv6 routes  vrf default            3                3        
+   # of ipv6 paths   vrf default            3                3        
+   # of ipv6 routes  vrf CMS-TENANT-PROD-01        3                3        
+   # of ipv6 paths   vrf CMS-TENANT-PROD-01        3                3        
+   # of ipv6 routes  vrf VPC-KEEP           3                3        
+   # of ipv6 paths   vrf VPC-KEEP           3                3        
+
+interfaces
+   # of eth interfaces                      54               54        
+   # of eth interfaces up                   10               10        
+   # of eth interfaces down                 44               44        
+   # of eth interfaces other                0                0         
+
+   # of vlan interfaces                     5                5         
+   # of vlan interfaces up                  4                4         
+   # of vlan interfaces down                1                1         
+   # of vlan interfaces other               0                0         

@@ -1,0 +1,10 @@
+---
+  features:
+  - { feature: bgp }
+  - { feature: interface-vlan }
+  - { feature: "nv overlay" }
+  - { feature: vnseg_vlan }
+  - { feature: lacp }
+  - { feature: vpc }
+  - { feature: private-vlan }
+

@@ -1,0 +1,19 @@
+---
+- name: Test Playbook
+  hosts: all
+  gather_facts: no
+  connection: local
+  vars:
+    api:
+      host: "{{ ansible_host }}"
+      username: admin
+      password: Cisco123
+      transport: nxapi
+
+  tasks:
+
+    - name: Configure Hostname
+      nxos_config:
+        lines: hostname {{ inventory_hostname }}
+        provider: "{{ api }}"
+ 

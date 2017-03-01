@@ -1,0 +1,23 @@
+vlans:
+  - { id: 1, vn_segment: "", name: "" }
+  - { id: 10, vn_segment: 20010, name: CMS-10 }
+  - { id: 20, vn_segment: 20020, name: CMS-20 }
+  - { id: 30, vn_segment: 20030, name: CMS-30 }
+  - { id: 50, vn_segment: "", name: "" }
+  - { id: 60, vn_segment: 20060, name: CMS-60 }
+  - { id: 600, vn_segment: 200600, name: CMS-600 }
+  - { id: 900, vn_segment: 200900, name: CMS-900 }
+  - { id: 2000, vn_segment: 20000, name: l3-vni }
+  - { id: 2900, vn_segment: 2002900, name: CMS-2900 }
+
+vrfs:
+  - { name: CMS-TENANT-PROD-01, vni: 20000, rt: "65500:20000" }
+
+evpns:
+  - { vni: 20010, mode: l2, rd: auto, rt: "65500:20010" }
+  - { vni: 20020, mode: l2, rd: auto, rt: "65500:20020" }
+  - { vni: 20030, mode: l2, rd: auto, rt: "65500:20030" }
+  - { vni: 20060, mode: l2, rd: auto, rt: "65500:20060" }
+  - { vni: 200600, mode: l2, rd: auto, rt: "65500:200600" }
+  - { vni: 200900, mode: l2, rd: auto, rt: "65500:200900" }
+  - { vni: 2002900, mode: l2, rd: auto, rt: "65500:2002900" }

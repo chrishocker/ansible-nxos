@@ -1,0 +1,9 @@
+[spine]
+SPINE-1 ansible_host=10.83.11.64
+SPINE-2 ansible_host=10.83.11.65
+
+[leaf]
+CMS-EVPN-9372-LEAF1 ansible_host=10.83.11.66
+CMS-EVPN-9372-LEAF2 ansible_host=10.83.11.67
+CMS-EVPN-9372-LEAF3 ansible_host=10.83.11.68
+CMS-EVPN-9372-LEAF4 ansible_host=10.83.11.69

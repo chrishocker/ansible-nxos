@@ -1,0 +1,23 @@
+port-channel load-balance src-dst ip
+hardware qos ns-buffer-profile mesh
+
+vrf context {{ vpc.pkl_vrf }}
+
+interface {{ vpc.pkl }}
+  no switchport
+  vrf member {{ vpc.pkl_vrf }}
+  ip address {{ vpc.pkl_src }}/{{ vpc.pkl_mask }}
+  no shutdown
+
+interface port-channel{{ vpc.peerlink_pc }}
+  switchport mode trunk
+  spanning-tree port type network
+  vpc peer-link
+
+vpc domain {{ vpc.domain }}
+  peer-switch
+  role priority {{ vpc.role_priority }}
+  peer-keepalive destination {{ vpc.pkl_dest }} source {{ vpc.pkl_src }} vrf {{ vpc.pkl_vrf }}
+  delay restore 120
+  ipv6 nd synchronize
+  ip arp synchronize

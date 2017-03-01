@@ -1,0 +1,21 @@
+---
+- name: ACL Playbook
+  hosts: all
+  gather_facts: no
+  connection: local
+  vars:
+    api:
+      host: "{{ ansible_host }}"
+      username: admin
+      password: Cisco123
+      transport: nxapi    
+  tasks:
+
+    - name: Exec Command
+      nxos_command:
+        commands:
+          - "{{ command }}"
+        provider: "{{ api }}"
+      register: output
+   
+    - debug: var=output.stdout_lines
