@@ -3,12 +3,8 @@
   hosts: all
   connection: local
   gather_facts: no
-  vars:
-    nxapi:
-      host: "{{ ansible_host }}"
-      username: admin
-      password: Cisco123
-      transport: nxapi
+  vars_files: 
+    - secrets.yml
 
   tasks:
   - name: copy package to the device

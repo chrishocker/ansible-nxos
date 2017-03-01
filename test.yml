@@ -3,17 +3,13 @@
   hosts: all
   gather_facts: no
   connection: local
-  vars:
-    api:
-      host: "{{ ansible_host }}"
-      username: admin
-      password: Cisco123
-      transport: nxapi
+  vars_files: 
+    - secrets.yml
 
   tasks:
 
     - name: Configure Hostname
       nxos_config:
         lines: hostname {{ inventory_hostname }}
-        provider: "{{ api }}"
+        provider: "{{ nxapi }}"
  

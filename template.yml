@@ -3,12 +3,9 @@
   hosts: all
   gather_facts: no
   connection: local
-  vars:
-    nxapi:
-      host: "{{ ansible_host }}"
-      username: admin
-      password: Cisco123
-      transport: nxapi
+  vars_files: 
+    - secrets.yml
+    
   tasks:
     
     - name: Apply basic template

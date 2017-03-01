@@ -3,19 +3,16 @@
   hosts: all
   gather_facts: no
   connection: local
-  vars:
-    api:
-      host: "{{ ansible_host }}"
-      username: admin
-      password: Cisco123
-      transport: nxapi    
+  vars_files: 
+    - secrets.yml
+
   tasks:
 
     - name: Exec Command
       nxos_command:
         commands:
           - "{{ command }}"
-        provider: "{{ api }}"
+        provider: "{{ nxapi }}"
       register: output
    
     - debug: var=output.stdout_lines
